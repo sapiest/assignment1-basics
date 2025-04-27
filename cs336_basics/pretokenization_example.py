@@ -1,10 +1,11 @@
 import os
 from typing import BinaryIO
 
+
 def find_chunk_boundaries(
-    file: BinaryIO, 
-    desired_num_chunks: int, 
-    split_special_token: bytes
+        file: BinaryIO,
+        desired_num_chunks: int,
+        split_special_token: bytes
 ) -> list[int]:
     """
     Chunk the file into parts that can be counted independently.
@@ -49,12 +50,13 @@ def find_chunk_boundaries(
     # Make sure all boundaries are unique, but might be fewer than desired_num_chunks
     return sorted(set(chunk_boundaries))
 
-## Usage
+
+# Usage
 with open(..., "rb") as f:
     boundaries = find_chunk_boundaries(
         f, num_processes, "<|endoftext|>".encode("utf-8"))
-        
-    # The following is a serial implementation, but you can parallelize this 
+
+    # The following is a serial implementation, but you can parallelize this
     # by sending each start/end pair to a set of processes.
     for start, end in zip(boundaries[:-1], boundaries[1:]):
         f.seek(start)
